@@ -1,5 +1,6 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;  // Add this import
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ public class WorkOrder {
     private LocalDate dueDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrder")
+    @JsonManagedReference  // Add this annotation to manage the forward reference
     private List<Product> products;
 
     // Getters and Setters

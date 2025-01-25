@@ -1,5 +1,6 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;  // Add this import
 import jakarta.persistence.*;
 
 @Entity
@@ -17,6 +18,7 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
+    @JsonBackReference  // Add this annotation to prevent serialization of the back reference
     private WorkOrder workOrder;
 
     // Getters and Setters

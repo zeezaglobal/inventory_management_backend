@@ -17,6 +17,10 @@ public class WorkOrder {
     @Column(unique = true, nullable = false)
     private String workOrderNumber;
 
+    private String clientAddress;
+
+    private String status;
+
     private LocalDate dueDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrder")
@@ -24,6 +28,22 @@ public class WorkOrder {
     private List<Product> products;
 
     // Getters and Setters
+
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "WorkOrder")
+
 public class WorkOrder {
 
     @Id

@@ -3,6 +3,8 @@ package com.zeezaglobal.inventory_management_backend.Entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;  // Add this import
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
 public class Product {
 
@@ -12,7 +14,7 @@ public class Product {
 
     private String name;
 
-    private Double price;
+    private String type;
 
     private Integer quantity;
 
@@ -21,7 +23,9 @@ public class Product {
     @JsonBackReference  // Add this annotation to prevent serialization of the back reference
     private WorkOrder workOrder;
 
-    // Getters and Setters
+    @ManyToMany(mappedBy = "products")
+    @JsonBackReference
+    private Set<JobCard> jobCards;
 
     public Long getId() {
         return id;
@@ -39,12 +43,12 @@ public class Product {
         this.name = name;
     }
 
-    public Double getPrice() {
-        return price;
+    public String getType() {
+        return type;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Integer getQuantity() {
@@ -61,5 +65,13 @@ public class Product {
 
     public void setWorkOrder(WorkOrder workOrder) {
         this.workOrder = workOrder;
+    }
+
+    public Set<JobCard> getJobCards() {
+        return jobCards;
+    }
+
+    public void setJobCards(Set<JobCard> jobCards) {
+        this.jobCards = jobCards;
     }
 }

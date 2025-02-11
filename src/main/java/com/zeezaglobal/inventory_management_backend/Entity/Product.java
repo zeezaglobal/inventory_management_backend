@@ -1,6 +1,8 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;  // Add this import
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Set;
@@ -20,11 +22,11 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
-    @JsonBackReference  // Add this annotation to prevent serialization of the back reference
+   @JsonBackReference
     private WorkOrder workOrder;
 
     @ManyToMany(mappedBy = "products")
-    @JsonBackReference
+
     private Set<JobCard> jobCards;
 
     public Long getId() {

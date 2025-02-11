@@ -23,12 +23,21 @@ public class WorkOrder {
     private String status;
 
     private LocalDate dueDate;
+    private LocalDate receivedDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrder")
-    @JsonManagedReference  // Add this annotation to manage the forward reference
+    @JsonManagedReference
     private List<Product> products;
 
     // Getters and Setters
+
+    public LocalDate getReceivedDate() {
+        return receivedDate;
+    }
+
+    public void setReceivedDate(LocalDate receivedDate) {
+        this.receivedDate = receivedDate;
+    }
 
     public String getClientAddress() {
         return clientAddress;

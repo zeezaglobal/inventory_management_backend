@@ -16,7 +16,7 @@ public class JobCard {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
-    @JsonManagedReference
+
     private WorkOrder workOrder;
 
     @ManyToMany
@@ -25,6 +25,7 @@ public class JobCard {
             joinColumns = @JoinColumn(name = "jobcard_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
+
     private Set<Product> products;
     public JobCard(String jobCardNumber, WorkOrder workOrder) {
         this.jobCardNumber = jobCardNumber;

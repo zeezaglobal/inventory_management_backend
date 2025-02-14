@@ -16,7 +16,6 @@ public class JobCard {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
-
     private WorkOrder workOrder;
 
     @ManyToMany
@@ -25,13 +24,14 @@ public class JobCard {
             joinColumns = @JoinColumn(name = "jobcard_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-
+    @JsonManagedReference
     private Set<Product> products;
     public JobCard(String jobCardNumber, WorkOrder workOrder) {
         this.jobCardNumber = jobCardNumber;
         this.workOrder = workOrder;
     }
-
+    public JobCard() {
+    }
     public JobCard(Long id, String jobCardNumber, WorkOrder workOrder, Set<Product> products) {
         this.id = id;
         this.jobCardNumber = jobCardNumber;

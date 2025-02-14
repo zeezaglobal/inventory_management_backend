@@ -22,11 +22,11 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "work_order_id")
-   @JsonBackReference
+    @JsonBackReference
     private WorkOrder workOrder;
 
     @ManyToMany(mappedBy = "products")
-
+    @JsonBackReference
     private Set<JobCard> jobCards;
 
     public Long getId() {

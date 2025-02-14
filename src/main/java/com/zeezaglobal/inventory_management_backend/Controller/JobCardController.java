@@ -1,5 +1,6 @@
 package com.zeezaglobal.inventory_management_backend.Controller;
 
+import com.zeezaglobal.inventory_management_backend.Dto.JobCardRequest;
 import com.zeezaglobal.inventory_management_backend.Entity.JobCard;
 import com.zeezaglobal.inventory_management_backend.Services.JobCardService;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,8 @@ public class JobCardController {
     }
 
     @PostMapping
-    public JobCard createJobCard(
-            @RequestParam Long workOrderId,
-            @RequestParam String jobCardNumber,
-            @RequestParam Set<Long> productIds
-    ) {
-        return jobCardService.createJobCard(workOrderId, jobCardNumber, productIds);
+    public JobCard createJobCard(@RequestBody JobCardRequest request) {
+        return jobCardService.createJobCard(request.getWorkOrderId(), request.getJobCardNumber(), request.getProductIds());
     }
 
     @GetMapping

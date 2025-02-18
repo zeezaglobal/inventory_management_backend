@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;  // Add this impor
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -25,65 +26,60 @@ public class WorkOrder {
     private LocalDate dueDate;
     private LocalDate receivedDate;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "workOrder")
-    @JsonManagedReference
-    private List<Product> products;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
+    @OneToMany(mappedBy = "workOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<WorkOrderProduct> workOrderProducts;
+
+
+    @OneToMany(mappedBy = "workOrder", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<JobCard> jobCards;
     // Getters and Setters
 
-    public LocalDate getReceivedDate() {
-        return receivedDate;
+
+    public WorkOrder() {
     }
 
-    public void setReceivedDate(LocalDate receivedDate) {
-        this.receivedDate = receivedDate;
-    }
-
-    public String getClientAddress() {
-        return clientAddress;
-    }
-
-    public void setClientAddress(String clientAddress) {
+    public WorkOrder(String workOrderNumber, String clientAddress, String status, LocalDate dueDate, LocalDate receivedDate) {
+        this.workOrderNumber = workOrderNumber;
         this.clientAddress = clientAddress;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
         this.status = status;
+        this.dueDate = dueDate;
+        this.receivedDate = receivedDate;
     }
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getWorkOrderNumber() {
         return workOrderNumber;
     }
 
-    public void setWorkOrderNumber(String workOrderNumber) {
-        this.workOrderNumber = workOrderNumber;
+    public String getClientAddress() {
+        return clientAddress;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
+    public LocalDate getReceivedDate() {
+        return receivedDate;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public List<JobCard> getJobCards() {
+        return jobCards;
     }
 }

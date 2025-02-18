@@ -1,8 +1,10 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -14,29 +16,26 @@ public class JobCard {
     @Column(unique = true)
     private String jobCardNumber;
 
+    private Long workOrder_id;
+
     @ManyToOne
-    @JoinColumn(name = "work_order_id")
+    @JoinColumn(name = "work_order_id", nullable = false)
+    @JsonBackReference
     private WorkOrder workOrder;
 
-    @ManyToMany
-    @JoinTable(
-            name = "jobcard_product",
-            joinColumns = @JoinColumn(name = "jobcard_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @JsonManagedReference
-    private Set<Product> products;
-    public JobCard(String jobCardNumber, WorkOrder workOrder) {
-        this.jobCardNumber = jobCardNumber;
-        this.workOrder = workOrder;
-    }
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
     public JobCard() {
     }
-    public JobCard(Long id, String jobCardNumber, WorkOrder workOrder, Set<Product> products) {
-        this.id = id;
-        this.jobCardNumber = jobCardNumber;
-        this.workOrder = workOrder;
-        this.products = products;
+
+    public Long getWorkOrder_id() {
+        return workOrder_id;
+    }
+
+    public void setWorkOrder_id(Long workOrder_id) {
+        this.workOrder_id = workOrder_id;
     }
 
     public Long getId() {
@@ -63,11 +62,11 @@ public class JobCard {
         this.workOrder = workOrder;
     }
 
-    public Set<Product> getProducts() {
-        return products;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setProducts(Set<Product> products) {
-        this.products = products;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

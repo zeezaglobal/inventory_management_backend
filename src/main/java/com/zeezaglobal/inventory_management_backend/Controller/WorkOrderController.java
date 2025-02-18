@@ -1,5 +1,6 @@
 package com.zeezaglobal.inventory_management_backend.Controller;
 
+import com.zeezaglobal.inventory_management_backend.Dto.WorkOrderRequest;
 import com.zeezaglobal.inventory_management_backend.Entity.WorkOrder;
 import com.zeezaglobal.inventory_management_backend.Services.WorkOrderService;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class WorkOrderController {
     }
 
     @PostMapping
-    public WorkOrder createWorkOrder(@RequestBody WorkOrder workOrder) {
+    public WorkOrder createWorkOrder(@RequestBody WorkOrderRequest workOrder) {
         return workOrderService.createWorkOrder(workOrder);
     }
 

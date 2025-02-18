@@ -20,7 +20,7 @@ public class JobCardController {
 
     @PostMapping
     public JobCard createJobCard(@RequestBody JobCardRequest request) {
-        return jobCardService.createJobCard(request.getWorkOrderId(), request.getJobCardNumber(), request.getProductIds());
+        return jobCardService.createJobCard(request);
     }
 
     @GetMapping

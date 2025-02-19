@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -16,27 +17,33 @@ public class JobCard {
     @Column(unique = true)
     private String jobCardNumber;
 
-    private Long workOrder_id;
+
 
     @ManyToOne
     @JoinColumn(name = "work_order_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private WorkOrder workOrder;
 
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    @OneToMany(mappedBy = "jobCard", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private Set<JobCardProduct> jobCardProducts;
+
+    public Set<JobCardProduct> getJobCardProducts() {
+        return jobCardProducts;
+    }
+
+    public void setJobCardProducts(Set<JobCardProduct> jobCardProducts) {
+        this.jobCardProducts = jobCardProducts;
+    }
+
     public JobCard() {
     }
 
-    public Long getWorkOrder_id() {
-        return workOrder_id;
-    }
 
-    public void setWorkOrder_id(Long workOrder_id) {
-        this.workOrder_id = workOrder_id;
-    }
 
     public Long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;  // Add this import
 import jakarta.persistence.*;
 
@@ -35,7 +36,7 @@ public class WorkOrder {
 
 
     @OneToMany(mappedBy = "workOrder", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private List<JobCard> jobCards;
     // Getters and Setters
 

@@ -52,6 +52,46 @@ public class WorkOrder {
         this.receivedDate = receivedDate;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setWorkOrderNumber(String workOrderNumber) {
+        this.workOrderNumber = workOrderNumber;
+    }
+
+    public void setClientAddress(String clientAddress) {
+        this.clientAddress = clientAddress;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setReceivedDate(LocalDate receivedDate) {
+        this.receivedDate = receivedDate;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public List<WorkOrderProduct> getWorkOrderProducts() {
+        return workOrderProducts;
+    }
+
+    public void setWorkOrderProducts(List<WorkOrderProduct> workOrderProducts) {
+        this.workOrderProducts = workOrderProducts;
+    }
+
+    public void setJobCards(List<JobCard> jobCards) {
+        this.jobCards = jobCards;
+    }
+
     public Long getId() {
         return id;
     }

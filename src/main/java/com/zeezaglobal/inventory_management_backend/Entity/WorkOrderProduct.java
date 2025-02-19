@@ -1,6 +1,7 @@
 package com.zeezaglobal.inventory_management_backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +17,7 @@ public class WorkOrderProduct {
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
+    @JsonManagedReference
     private Product product;
 
     private int quantity;

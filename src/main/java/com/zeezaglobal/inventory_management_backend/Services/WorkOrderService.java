@@ -29,7 +29,7 @@ public class WorkOrderService {
     }
 
     public List<WorkOrder> getAllWorkOrders() {
-        return workOrderRepository.findAllWithProducts();
+        return workOrderRepository.findAll();
     }
 
     public WorkOrder getWorkOrderById(Long id) {

@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class WorkOrderService {
@@ -29,12 +30,28 @@ public class WorkOrderService {
     }
 
     public List<WorkOrder> getAllWorkOrders() {
-        return workOrderRepository.findAll();
+
+        List<WorkOrder> workOrders = workOrderRepository.findAll();
+
+        for (WorkOrder workOrder : workOrders) {
+            boolean allProductsStatusOne = workOrder.getWorkOrderProducts().stream()
+                    .allMatch(product -> product.getStatus() == 1);
+
+            if (allProductsStatusOne) {
+                // Change the status of the work order to 4
+                workOrderRepository.updateStatus(workOrder.getId(), "3");
+            }
+        }
+
+        return workOrders;
     }
+
+
 
     public WorkOrder getWorkOrderById(Long id) {
         return workOrderRepository.findById(id).orElseThrow(() -> new RuntimeException("WorkOrder not found"));
     }
+
     @Transactional
     public WorkOrder createWorkOrder(WorkOrderRequest request) {
         // Create and save WorkOrder
@@ -55,6 +72,7 @@ public class WorkOrderService {
             workOrderProduct.setWorkOrder(savedWorkOrder);
             workOrderProduct.setProduct(product);
             workOrderProduct.setQuantity(productRequest.getQuantity());
+            workOrderProduct.setStatus(0);
             return workOrderProduct;
         }).toList();
 

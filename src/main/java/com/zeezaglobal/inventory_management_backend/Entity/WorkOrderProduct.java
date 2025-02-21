@@ -21,6 +21,15 @@ public class WorkOrderProduct {
     private Product product;
 
     private int quantity;
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

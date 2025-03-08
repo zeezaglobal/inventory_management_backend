@@ -12,6 +12,6 @@ public class WebConfig implements WebMvcConfigurer {
         // Allow CORS for React app on localhost:3000
         registry.addMapping("/api/**")
                 .allowedOrigins("http://147.93.114.66:8081", "http://localhost:3000")  // Add your React app URL
-                .allowedMethods("GET", "POST", "DELETE");
+                .allowedMethods("GET", "POST", "DELETE","PUT");
     }
 }

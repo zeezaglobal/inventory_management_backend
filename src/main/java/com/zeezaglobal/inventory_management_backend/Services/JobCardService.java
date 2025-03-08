@@ -6,17 +6,16 @@ import com.zeezaglobal.inventory_management_backend.Entity.JobCardProduct;
 import com.zeezaglobal.inventory_management_backend.Entity.Product;
 import com.zeezaglobal.inventory_management_backend.Entity.WorkOrder;
 import com.zeezaglobal.inventory_management_backend.Repository.*;
+import com.zeezaglobal.inventory_management_backend.Utils.JobCardNumberGenerator;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Sort;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.zeezaglobal.inventory_management_backend.Utils.JobCardNumberGenerator.generateJobCardNumber;
+
 
 @Service
 public class JobCardService {
@@ -25,6 +24,9 @@ public class JobCardService {
     private final WorkOrderProductRepository workOrderProductRepository;
     private final ProductRepository productRepository;
     private final JobCardProductRepository jobCardProductRepository;
+
+    @Autowired
+    private JobCardNumberGenerator jobCardNumberGenerator;
 
     public JobCardService(JobCardRepository jobCardRepository,
                           WorkOrderRepository workOrderRepository,
@@ -36,6 +38,7 @@ public class JobCardService {
         this.productRepository = productRepository;
         this.jobCardProductRepository = jobCardProductRepository;
         this.workOrderProductRepository = workOrderProductRepository;
+
     }
 
     @Transactional
@@ -47,7 +50,7 @@ public class JobCardService {
 
         // Create a new JobCard
         JobCard jobCard = new JobCard();
-        jobCard.setJobCardNumber(generateJobCardNumber());
+        jobCard.setJobCardNumber(jobCardNumberGenerator.generateJobCardNumber(workOrder.getWorkOrderNumber()));
         jobCard.setWorkOrder(workOrder);
 
         // Save JobCard first to generate an ID

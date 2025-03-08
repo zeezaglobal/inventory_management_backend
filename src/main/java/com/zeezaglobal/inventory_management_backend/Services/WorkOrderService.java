@@ -28,7 +28,15 @@ public class WorkOrderService {
         this.productRepository = productRepository;
         this.workOrderProductRepository = workOrderProductRepository;
     }
-
+    @Transactional
+    public boolean updateStatus(Long workOrderId, String newStatus) {
+        Optional<WorkOrder> workOrderOptional = workOrderRepository.findById(workOrderId);
+        if (workOrderOptional.isPresent()) {
+            workOrderRepository.updateStatus(workOrderId, newStatus);
+            return true;
+        }
+        return false;
+    }
     public List<WorkOrder> getAllWorkOrders() {
 
         List<WorkOrder> workOrders = workOrderRepository.findAll();
@@ -39,7 +47,7 @@ public class WorkOrderService {
 
             if (allProductsStatusOne) {
                 // Change the status of the work order to 4
-                workOrderRepository.updateStatus(workOrder.getId(), "3");
+              //  workOrderRepository.updateStatus(workOrder.getId(), "3");
             }
         }
 

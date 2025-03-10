@@ -23,6 +23,6 @@ public class JobCardNumberGenerator {
         Long counter = counterService.incrementCounter();
 
         // Generate the job card number using the counter
-        return "JC-" + workOrderNumber + "-" + String.format("%05d", counter);
+        return "JC-" +  "-" + String.format("%05d", counter);
     }
 }

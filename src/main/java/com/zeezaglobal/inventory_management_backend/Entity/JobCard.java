@@ -16,6 +16,7 @@ public class JobCard {
 
     @Column(unique = true)
     private String jobCardNumber;
+    private int status;
 
 
 
@@ -43,7 +44,13 @@ public class JobCard {
     public JobCard() {
     }
 
+    public int getStatus() {
+        return status;
+    }
 
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

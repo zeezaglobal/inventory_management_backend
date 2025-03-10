@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,7 +41,17 @@ public class JobCardService {
         this.workOrderProductRepository = workOrderProductRepository;
 
     }
-
+    @Transactional
+    public boolean updateJobCardStatus(Long jobCardId, int newStatus) {
+        Optional<JobCard> jobCardOptional = jobCardRepository.findById(jobCardId);
+        if (jobCardOptional.isPresent()) {
+            JobCard jobCard = jobCardOptional.get();
+            jobCard.setStatus(newStatus);
+            jobCardRepository.save(jobCard);
+            return true;
+        }
+        return false; // JobCard not found
+    }
     @Transactional
     public JobCard createJobCard(JobCardRequest jobCardRequest) {
         // Fetch the WorkOrder
@@ -50,6 +61,7 @@ public class JobCardService {
 
         // Create a new JobCard
         JobCard jobCard = new JobCard();
+        jobCard.setStatus(0);
         jobCard.setJobCardNumber(jobCardNumberGenerator.generateJobCardNumber(workOrder.getWorkOrderNumber()));
         jobCard.setWorkOrder(workOrder);
 

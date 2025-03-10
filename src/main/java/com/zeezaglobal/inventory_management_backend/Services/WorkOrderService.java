@@ -1,6 +1,7 @@
 package com.zeezaglobal.inventory_management_backend.Services;
 
 import com.zeezaglobal.inventory_management_backend.Dto.WorkOrderRequest;
+import com.zeezaglobal.inventory_management_backend.Entity.JobCard;
 import com.zeezaglobal.inventory_management_backend.Entity.Product;
 import com.zeezaglobal.inventory_management_backend.Entity.WorkOrder;
 import com.zeezaglobal.inventory_management_backend.Entity.WorkOrderProduct;
@@ -42,12 +43,14 @@ public class WorkOrderService {
         List<WorkOrder> workOrders = workOrderRepository.findAll();
 
         for (WorkOrder workOrder : workOrders) {
-            boolean allProductsStatusOne = workOrder.getWorkOrderProducts().stream()
-                    .allMatch(product -> product.getStatus() == 1);
+            List<JobCard> jobCards = workOrder.getJobCards();
+            boolean allJobCardStatusOne = jobCards != null && !jobCards.isEmpty() &&
+                    jobCards.stream().allMatch(jobCard -> jobCard.getStatus() == 1);
 
-            if (allProductsStatusOne) {
+
+            if (allJobCardStatusOne) {
                 // Change the status of the work order to 4
-              //  workOrderRepository.updateStatus(workOrder.getId(), "3");
+                workOrderRepository.updateStatus(workOrder.getId(), "3");
             }
         }
 
